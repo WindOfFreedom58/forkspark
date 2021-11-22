@@ -1,0 +1,7 @@
+<launch>
+    <node name="cubic_spiral_planner_node" pkg="planners" type="CubicSpiralLocalPlanner.py" output="screen"/>
+    <node name="parking_planner_node" pkg="planners" type="ParkingPlanner.py" output="screen"/>
+    <node name="path_visualizer_parking" pkg="visualization" type="PathVisualizer.py" output="screen">
+        <param name="waypoint_topic" type="str" value="/parking_waypoints"></param>   
+    </node>
+</launch>

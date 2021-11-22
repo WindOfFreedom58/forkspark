@@ -1,0 +1,3 @@
+<launch>
+    <node name="PIDController" pkg="controllers" type="PIDBarrierController.py"></node>
+</launch>

@@ -1,0 +1,59 @@
+<launch>
+    <arg name="navigation" default="barrier"/>
+    <arg name="controller" default="waypoint"/>
+
+    <include file="$(find spark)/launch/spark_all_sensors.launch"/>
+    <!-- Sign detection -->
+    <!-- <include file="$(find darknet_ros)/launch/yolo_v3_tiny_spark.launch"/> -->
+    <rosparam param="/darknet_ros/yolo_model/detection_classes/names">["dur",
+        "durak",
+        "saga donulmez",
+        "sola donulmez",
+        "girilmez",
+        "park yasak",
+        "park",
+        "trafik isigi",
+        "ileriden sola mecburi",
+        "ilerden saga mecburi"]</rosparam>
+    <include file="$(find yolov5)/launch/yolov5.launch"/>
+    <!-- LIDAR Cam Calibration -->
+    <include file="$(find lidar_cam_calibration)/launch/lidar_cam_calibration.launch"/>
+    
+    <!-- GPS -->
+    <node name="GPS_Node" pkg="reach_ros_node" type="nmea_tcp_driver" >
+        <param name="host" type="str" value="192.168.43.128"/>
+        <param name="port" type="int" value="9002"/>
+    </node>
+    
+    <!-- PLANNERS -->
+    <group>        <!-- Group 1: Only parking planner and behaviour planner-->
+        <include file="$(find planners)/launch/behaviour_planner.launch"/>
+        <include file="$(find planners)/launch/parking_planner.launch"/>
+    </group>
+
+
+    <!-- Localization -->
+    <!-- Wheel odometry, IMU and GPS has already been opened as a part of hardware_interface-->
+    <!-- TODO: Try this, complete steering for wheel odometry -->
+    <include file="$(find localization)/launch/localization_run.launch"/>
+
+    <group if="$(eval arg('navigation') == 'barrier')">
+
+        <include file="$(find lidar_following)/launch/lidar_following.launch"/>
+        <!-- <group if="$(eval arg('controller') == 'waypoint')"> -->
+            <!-- Waypoint controller - stanley // TODO:Tune this -->
+        <!-- </group> -->
+        <include file="$(find controllers)/launch/controller_waypoint.launch"/>
+        <group if="$(eval arg('controller') == 'pid')">
+            <param name="waypoint_topic" type="str" value="/local_waypoints"/>
+            <include file="$(find controllers)/launch/controller_pid.launch"/>
+        </group>
+    </group>
+
+    <group if="$(eval arg('navigation') == 'map')">
+        <!-- TODO: Include map and planning  -->
+        <!-- Waypoint controller - stanley // TODO:Tune this -->
+        <param name="waypoint_topic" type="str" value="/local_waypoints"/>
+        <include file="$(find controllers)/launch/controller_waypoint.launch"/>
+    </group>
+</launch>

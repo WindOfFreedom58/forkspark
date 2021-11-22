@@ -1,0 +1,8 @@
+  <!-- Odom node (Encoders + IMU) -->
+<launch>
+   <node pkg="localization" type="gps_converter_node.py" name="gps_converter_sim" output="screen"></node>
+   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se_odom" output="screen" >
+       <rosparam command="load" file="$(find localization)/params/ekf_se_odom.yaml"></rosparam>
+   </node>
+</launch>   
+

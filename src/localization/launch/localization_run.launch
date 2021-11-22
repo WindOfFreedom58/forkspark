@@ -1,0 +1,4 @@
+<launch>
+    <node name="GPSPosePublisher" pkg="localization" type="GPSPosePublisherNode.py" output="screen"/>
+</launch>   
+

@@ -1,0 +1,8 @@
+<launch>
+    <include file="$(find spark_mini_description)/launch/description.launch"/>
+    <rosparam command="load" file="$(find lidar_cam_calibration)/config/spark_mini_calibration_parameters.yaml"/>
+
+    <node name="LIDARCameraProjectorNode" pkg="lidar_cam_calibration" type="lidar_to_cam_node" output="screen"/>
+
+
+</launch>

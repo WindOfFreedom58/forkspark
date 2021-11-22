@@ -1,0 +1,3 @@
+spark_msgs/Pose[] waypoints
+---
+int16 response

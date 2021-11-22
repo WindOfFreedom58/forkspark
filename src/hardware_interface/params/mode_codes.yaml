@@ -1,0 +1,6 @@
+modes:
+  brake: "0x0005"
+  forward: "0x0004"
+  backward: "0x0003"
+  stop: "0x0002"
+  enable: "0x0008"

@@ -1,0 +1,75 @@
+# Frame names
+global_frame: "world"
+base_frame: "base_link"
+
+# Static TF
+
+# Translation: meters
+# Rotation: radians
+
+# In SVL's coordinate system:
+# - pitch is rotation around x
+# - yaw is rotation around y
+# - roll is rotation around z
+
+# In right handed coordinate system:
+# - roll is rotation around x
+# - pitch is rotation around y
+# - yaw is rotation around z
+
+# In TF, translations and rotations are converted to right handed coordinate frame according to https://www.svlsimulator.com/docs/getting-started/conventions/
+ 
+
+lidar_tf:
+  frame_name: "velodyne"
+  translation:
+    x: 1.3
+    y: 0.0
+    z: 1.5
+  rotation:
+    pitch: 0.0
+    yaw: 0.0
+    roll: 0.0
+
+main_camera_tf:
+  frame_name: "camera_main"
+  translation:
+    x: 1.3
+    y: 0.0
+    z: 1.3
+  rotation:
+    pitch: 0.0
+    yaw: 0.0
+    roll: 0.0
+
+odom_tf:
+  frame_name: "odom"
+  translation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  rotation:
+    pitch: 0.0
+    yaw: 0.0
+    roll: 0.0
+
+left_camera_tf:
+  frame_name: "camera_left"
+  translation:
+    x: 3.3
+    y: 0.6
+    z: 0.6
+  rotation:
+    pitch: 0.0
+    yaw: 0.872665 
+    roll: 0.349066
+right_camera_tf:
+  frame_name: "camera_right"
+  translation:
+    x: 3.3
+    y: -0.6
+    z: 0.6
+  rotation:
+    pitch: 0.0
+    yaw: -0.872665
+    roll: 0.349066

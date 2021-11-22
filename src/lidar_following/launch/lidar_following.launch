@@ -1,0 +1,7 @@
+<launch>
+    <!-- <remap from="/velodyne_points" to="/points_raw"></remap> -->
+    <node name="lidar_following" pkg="lidar_following" type="WaypointPointCloudNode" output="screen"/>
+    <node name="path_visualizer_lidar" pkg="visualization" type="PathVisualizer.py" output="screen">
+        <param name="waypoint_topic" type="str" value="/local_waypoints"></param>   
+    </node>
+</launch>

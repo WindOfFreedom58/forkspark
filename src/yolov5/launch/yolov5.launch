@@ -1,0 +1,4 @@
+<launch>
+    <node name="yolov5" pkg="yolov5" type="yolov5_node.py"></node>
+    
+</launch>

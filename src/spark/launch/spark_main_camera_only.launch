@@ -1,0 +1,9 @@
+<launch>
+    <!--Camera nodes-->
+    <!-- videoX => X increases as you plug another camera || (X, X+1) belongs to one camera, use even X's  -->
+    <node name="main_camera" pkg="usb_cam" type="usb_cam_node">
+        <param name="video_device" value="/dev/video2"/>
+        <param name="camera_frame_id" value="main_camera"/>
+    </node>
+
+</launch>

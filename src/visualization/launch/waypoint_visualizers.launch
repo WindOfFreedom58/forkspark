@@ -1,0 +1,8 @@
+<launch>
+    <node name="LIDARWaypointVisualizer" pkg="visualization" type="PathVisualizer.py" output="screen">
+        <param name="waypoint_topic" type="str" value="/local_waypoints"></param>
+    </node>
+    <node name="ParkWaypointVisualizer" pkg="visualization" type="PathVisualizer.py" output="screen">
+        <param name="waypoint_topic" type="str" value="/parking_waypoints"></param>
+    </node>
+</launch>

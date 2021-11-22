@@ -1,0 +1,3 @@
+<launch>
+    <node name="StanleyController" pkg="controllers" type="ControllerNode.py" output="screen"></node>
+</launch>

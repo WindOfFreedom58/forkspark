@@ -1,0 +1,8 @@
+<launch>
+    <arg name="log" default="screen"/>
+    <rosparam command="load" file="$(find hardware_interface)/params/mode_codes.yaml"/>
+    <include file="$(find joy_controller)/launch/spark_joy_controller.launch"/>
+    <include file="$(find hardware_interface)/launch/spark_hw_interface.launch">
+        <arg name="log" value="$(arg log)"/>
+    </include>
+</launch> 

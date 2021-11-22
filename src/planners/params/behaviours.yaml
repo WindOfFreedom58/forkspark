@@ -1,0 +1,7 @@
+behaviour_states:
+  left_state: 0
+  right_state: 1
+  straight_state: 2
+  stop_state: 3
+  park_state: 4
+  stopped_state: 5 

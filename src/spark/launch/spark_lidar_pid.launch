@@ -1,0 +1,9 @@
+<launch>
+    <include file="$(find spark_mini)/launch/spark_mini_lidar_only.launch"/>
+    <include file="$(find lidar_following)/launch/lidar_following.launch"/>
+    
+    <!-- TODO: Make respawn true when deploying-->
+    <node name="motor_control_node" pkg="arduino_motor_control" type="pid_motor_control_node.py" output="screen"/>
+    <node name="control_publisher_node" pkg="spark_mini_control" type="ControlPublisherNode.py" output="screen"/>
+
+</launch>

@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<!--
+Software License Agreement (BSD)
+
+\file      husky.urdf.xacro
+\authors   Paul Bovbel <pbovbel@clearpathrobotics.com>, Devon Ash <dash@clearpathrobotics.com>
+\copyright Copyright (c) 2015, Clearpath Robotics, Inc., All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that
+the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the
+   following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+   following disclaimer in the documentation and/or other materials provided with the distribution.
+ * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
+   products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WAR-
+RANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, IN-
+DIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<robot name="spark_mini"
+    xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- Base link is the center of the robot's bottom plate -->
+    <xacro:property name="spark_mini_width" value="0.625" />
+    <xacro:property name="spark_mini_length" value="0.825" />
+    <xacro:property name="spark_mini_height" value="0.393" />
+    <xacro:property name="spark_mini_wheel_radius" value="0.077" />
+    <xacro:property name="spark_mini_wheel_length" value="0.026" />
+    <xacro:property name="spark_mini_wheel_distance" value="0.31" />
+    <xacro:property name="lidar_height" value="0.0757" />
+
+    <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+    </material>
+    
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <link name="map"/>
+
+    <link name="base_link">
+        <inertial>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <mass value="1"/>
+         <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+       </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="${spark_mini_length} ${spark_mini_width} ${spark_mini_height}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="${spark_mini_length} ${spark_mini_width} ${spark_mini_height}"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="left_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="${spark_mini_wheel_length}" radius="${spark_mini_wheel_radius}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="${spark_mini_wheel_length}" radius="${spark_mini_wheel_radius}"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="right_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="${spark_mini_wheel_length}" radius="${spark_mini_wheel_radius}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="${spark_mini_wheel_length}" radius="${spark_mini_wheel_radius}"/>
+            </geometry>
+        </collision>
+    </link>
+
+
+    <link name="velodyne">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.0717" radius="0.1033"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.0717" radius="0.1033"/>
+            </geometry>
+        </collision>
+    
+    </link>
+
+    <link name="main_camera">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.02 0.05 0.02"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.02 0.05 0.02"/>
+            </geometry>
+        </collision>
+    
+    </link>
+
+    <joint name="fixed_base_joint" type="fixed">
+        <origin xyz="0 0 ${spark_mini_wheel_radius + (spark_mini_height/2)}"></origin>
+        <parent link="map"/>
+        <child link="base_link"/>
+    </joint>
+
+    <joint name="base_to_left_wheel" type="fixed">
+        <origin xyz="0 ${spark_mini_wheel_distance} ${-spark_mini_height/2}" rpy="1.57079 0 0" />
+        <parent link="base_link"/>
+        <child link="left_wheel"/>
+    </joint>
+
+    <joint name="base_to_right_wheel" type="fixed">
+        <origin xyz="0 ${-spark_mini_wheel_distance} ${-spark_mini_height/2}" rpy="1.57079 0 0" />
+        <parent link="base_link"/>
+        <child link="right_wheel"/>
+    </joint>
+
+    <joint name="base_to_lidar" type="fixed">
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"></origin>
+        <parent link="base_link"/>
+        <child link="velodyne"/>
+    </joint>
+
+    <joint name="base_to_main_camera" type="fixed">
+        <origin xyz="0.01715 -0.01550 ${0.106 - lidar_height/2}" rpy="0 0 0"></origin>+
+        <parent link="base_link"/>
+        <child link="main_camera"/>
+    </joint>
+</robot>

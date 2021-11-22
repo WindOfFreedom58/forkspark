@@ -1,0 +1,7 @@
+<launch>
+    <include file="$(find joy_control)/launch/spark_mini_joy_control.launch"/>
+
+    <!-- LIDAR nodes -->
+    <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch"/>
+
+</launch>

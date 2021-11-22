@@ -1,0 +1,13 @@
+<launch>
+    <!-- Load frames and static tf's from param file -->
+    <rosparam file="$(find spark)/params/tf_params.yaml" command="load"/>
+
+    <!-- Launch static broadcasters -->
+    <!-- Args: param name in tf_params.yaml file -->
+    <node name="lidar_static_tf" pkg="spark" type="static_broadcaster.py" args="lidar_tf" respawn="true"/>
+    <node name="main_camera_static_tf" pkg="spark" type="static_broadcaster.py" args="main_camera_tf" respawn="true"/>
+
+    <!-- Launch  -->
+    <node name="odom_tf" pkg="spark" type="odom_static_broadcaster.py" respawn="true" output="screen"/>
+
+</launch>

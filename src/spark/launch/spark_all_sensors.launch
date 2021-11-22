@@ -1,0 +1,15 @@
+<launch>
+    <include file="$(find spark)/launch/spark_sensorless.launch"/>
+
+    <!-- LIDAR nodes -->
+    <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch"/>
+
+    <!--Camera nodes-->
+    <!-- videoX => X increases as you plug another camera || (X, X+1) belongs to one camera, use even X's  -->
+    <node name="flipped_camera" pkg="usb_cam" type="usb_cam_node" output="log">
+        <param name="video_device" value="/dev/video2"/>
+        <param name="camera_frame_id" value="main_camera"/>
+    </node>
+
+    <node name="main_camera" pkg="yolov5" type="flip_node.py" output="screen"/>
+</launch> 
