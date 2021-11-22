@@ -1,5 +1,8 @@
 # KU AIRS: SPARK Autonomous Vehicle Project
 
+<img src="https://drive.google.com/uc?export=view&id=1uzDhpdKL1rKPqF_90bj-SDEvmHiZ4wFB" alt="" title="spark"/>
+
+
 Check this [link](https://eneserciyes.github.io/projects/spark/) for the blog post describing this project and the video of SPARK in simulation and on parkour. 
 
 ## Project Structure
